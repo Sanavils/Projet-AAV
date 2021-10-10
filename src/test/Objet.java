@@ -18,7 +18,8 @@ public class Objet {
 
 
     public String toString(){
-        return String.format("Objet : %s, Poids : %f, Prix : %f", nom, poids, prix);
+
+        return this.nom;
     }
 
     public int compare(Objet objet) {
@@ -38,9 +39,12 @@ public class Objet {
 
     }
 
-    public void estStocké(boolean b) {
-        this.stockage = b;
+    public float getPrix() {
+        return this.prix;
+
     }
+
+    public void estStocké(boolean b) {this.stockage = b;}
 
     public boolean getStocakge() {
         return this.stockage;

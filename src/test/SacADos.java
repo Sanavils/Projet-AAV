@@ -13,7 +13,7 @@ public class SacADos {
 
     public  SacADos(String chemin, float poidsMax){
         int nbObjet =0;
-        int i = 1;
+        int i = 0;
         this.poidsMax = poidsMax;
 
         //List<Objet> objets = new ArrayList<>();
@@ -42,12 +42,10 @@ public class SacADos {
                 String motsLigne[] = in2.nextLine().split(";");
                 this.tabObjet[i]= new Objet(motsLigne[0],Float.parseFloat(motsLigne[1]),Float.parseFloat(motsLigne[2]));
                 ++i;
-
             }
 
             in.close();
             in2.close();
-            résoudre("glouton");
 
         } catch (FileNotFoundException e) {
             System.err.printf("le fichier %s n'existe pas", file.toString() );
@@ -62,7 +60,7 @@ public class SacADos {
         if (choixRes.equals("dynamique")){
             this.dynamique();
         }
-        if (choixRes.equals("pse")){
+        if (choixRes.equals("PSE")){
             this.pse();
         }
     }
@@ -77,9 +75,7 @@ public class SacADos {
             if (poidsDuSac(tabObjet)>poidsMax){
                 tabObjet[x].estStocké(false);
             }
-
         }
-
     }
 
     private Objet getObjet(int i) {
@@ -138,23 +134,53 @@ public class SacADos {
         return (Premier + Dernier)/2;
     }
 
-
-
-
-
-
-
-
-
-
-
-
-
+    public String toString(){
+        String s = "";
+        for (Objet o : this.tabObjet){
+            if (o.getStockage() == true){
+                s+= o.toString() + System.lineSeparator();
+            }
+        }
+        return s;
+    }
 
 
     public void dynamique(){
+        float [][] Mat = new float[tabObjet.length][(int) (poidsMax+1)];
+        for (int j = 0; j < poidsMax; j++) {
+            if (tabObjet[0].getPoids() > j)
+                Mat[0][j] = 0;
+            else
+                Mat[0][j] = tabObjet[0].getPrix();
+        }
 
+        for(int i=1; i<tabObjet.length;i++) {
+            for (int j = 0; j < poidsMax+1; j++) {
+                if (tabObjet[i].getPoids() > j)
+                    Mat[i][j] = Mat[i-1][j];
+                else
+                    Mat[i][j] =  Math.max(Mat[i-1][j], Mat[i-1][(int) (j-tabObjet[i].getPoids())] + tabObjet[i].getPrix());
+            }
+        }
+        int i= tabObjet.length-1;
+        int j = (int) poidsMax;
+
+        while (Mat[i][j] == Mat[i][j-1]) {
+            j--;
+        }
+        while(j>0) {
+            while(i>0 && Mat[i][j]==Mat[i-1][j]) {
+                i--;
+            }
+            j= j-(int) (tabObjet[i].getPoids());
+            if (j>=0) {
+                this.tabObjet[i].estStocké(true);
+            }
+            i--;
+        }
     }
+
+
 
     public void pse(){
 

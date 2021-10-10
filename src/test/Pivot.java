@@ -1,6 +1,7 @@
 package test;
 
 public class Pivot {
+
     private Objet[] tableau;
     private int pivot;
 
