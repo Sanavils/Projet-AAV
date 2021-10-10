@@ -24,17 +24,17 @@ public class Arbre {
     }
 
 
-    public Arbre(Objet[] tabObjet, int z , int x,float poidsMax ){
-        this.listeObj = new Objet[z];
-        for (int i = 0; i < z; i++) {
-            this.listeObj[i] = tabObjet[i];
+       /* public Arbre(Objet[] tabObjet, int z , int x,float poidsMax ){
+            this.listeObj = new Objet[z];
+            for (int i = 0; i < z; i++) {
+                this.listeObj[i] = tabObjet[i];
+            }
+
+            if (x < listeObj.length) {
+             //   if(SacADos.poidsDuSac(this.listeObj)<poidsMax) {
+                    this.leftTree = new Arbre(tabObjet, z, x + 1, poidsMax);
+                    rightTree = new Arbre(tabObjet, z + 1, x + 1, poidsMax);
+                }
+            }*/
         }
 
-        if (x < listeObj.length) {
-            if(SacADos.poidsDuSac(this.listeObj)<poidsMax) {
-                this.leftTree = new Arbre(tabObjet, z, x + 1, poidsMax);
-                rightTree = new Arbre(tabObjet, z + 1, x + 1, poidsMax);
-            }
-        }
-    }
-}

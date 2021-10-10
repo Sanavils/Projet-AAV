@@ -137,7 +137,7 @@ public class SacADos {
     public String toString(){
         String s = "";
         for (Objet o : this.tabObjet){
-            if (o.getStockage() == true){
+            if (o.getStocakge() == true){
                 s+= o.toString() + System.lineSeparator();
             }
         }
