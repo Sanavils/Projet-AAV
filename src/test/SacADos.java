@@ -183,7 +183,8 @@ public class SacADos {
 
 
     public void pse(){
-
+        Arbre arbre = new Arbre(tabObjet, 0,poidsMax);
+        System.out.println(arbre);
     }
 
 
